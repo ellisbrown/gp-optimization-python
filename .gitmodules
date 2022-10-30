@@ -1,0 +1,3 @@
+[submodule "choldate"]
+	path = choldate
+	url = git@github.com:modusdatascience/choldate.git

@@ -33,6 +33,8 @@ def sample(d=1, size=40, ns=1000, nt=10, kernel=None, basis=None, noise=1e-2):
         B = basis(Xs)
         Fs = Fs + numpy.dot(B, numpy.randomrandn(B.shape[1], 1))
 
-    f = lambda X: Fs[X] + noise * numpy.random.randn(X.shape[0], 1)
+    def f(X):
+        return Fs[X] + noise * numpy.random.randn(X.shape[0], 1)
+
     Yt = f(numpy.arange(nt))
     return f, Xs, Fs, Xt, Yt, Kss

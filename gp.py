@@ -144,7 +144,7 @@ class GP(object):
     def _loolik(self, Ktt, Yt, Ht=None):
         nll = 0
 
-        for i in xrange(Ktt.shape[0]):
+        for i in range(Ktt.shape[0]):
             mui, s2i = self._downdate(Ktt, Yt, i, Ht)
             nll = nll + .5 * \
                 numpy.log(s2i) + (Yt[i] - mui)**2 / \

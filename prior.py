@@ -42,12 +42,14 @@ def optimize(gp, Xt, Yt, HPini=None, nelderMeadIters=50):
     else:
         Ht = None
 
-    f = lambda hp: nllcost(gp, Xt, Yt, hp[0], hp[1], hp[2:], Ht)
+    def f(hp):
+        return nllcost(gp, Xt, Yt, hp[0], hp[1], hp[2:], Ht)
 
     # Starts with few Nelder-Mead iterations
     res = minimize(f, HPini, method='Nelder-Mead',
                    options={'maxiter': nelderMeadIters, 'disp': False})
     hpopt = res.x
+    print(hpopt)
     # Search
     res = minimize(f, hpopt, method='SLSQP', options={'disp': False, })
     HP = res.x
@@ -65,7 +67,7 @@ def nllcost(gp, Xt, Yt, log_sf2, log_rsn, log_W, Ht):
     if not numpy.isfinite(numpy.r_[sf2, noise, W]).all():
         return numpy.inf
 
-    kernel = gp.KernelFun(sf2, W)
+    kernel = gp.KernelFun.__class__(sf2, W)
     Ktt = kernel(Xt, Xt)
     if not numpy.isfinite(Ktt).all():
         return numpy.inf

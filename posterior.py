@@ -19,6 +19,7 @@ Copyright (c) by Emile Contal, 2016
 import numpy
 from chol import solve_chol, cholpsd
 
+
 class Posterior(object):
 
     def __init__(self, Ktt, Yt, noise, Ht=None):

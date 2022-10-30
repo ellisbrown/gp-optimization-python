@@ -27,15 +27,17 @@ class Kernel(object):
         if X2 is None:
             return self.diag(X1)
         else:
-            self._checkInputs(X1, X2)
+            # self._checkInputs(X1, X2)
             return self.pairwise(X1, X2)
 
     def _checkInputs(self, X1, X2):
         n1, d1 = X1.shape
         n2, d2 = X2.shape
-        assert(d1 == d2)
+        assert (d1 == d2)
         if n1 * n2 * d1 > self.maxSpace:
-            raise NotImplementedError('Matrix too big for this kernel ({},{}) ({},{})'.format(n1,d1,n2,d2))
+            raise NotImplementedError(
+                f'Matrix too big for this kernel ({n1},{d1}) ({n2},{d2})')
+
 
 class KernelSE(Kernel):
     maxSpace = 2**30
@@ -54,7 +56,9 @@ class KernelSE(Kernel):
     @staticmethod
     def defaultHP(X):
         var = X.var(axis=0)
-        var[var<1e-20] = 1.
+        var[var < 1e-20] = 1.
+        # if var.size == 1:
+        #     return numpy.r_[var, 1.]
         return var
 
 

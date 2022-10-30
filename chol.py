@@ -36,10 +36,10 @@ def cholpsd(X):
             if e > 1e6 * m:
                 print('Warning, adding {} for cholpsd'.format(e))
             e = 10 * e
-        except ValueError, e:
-            print str(e)
-            import pdb
-            pdb.set_trace()
+        except ValueError as e:
+            print(str(e))
+            import ipdb
+            ipdb.set_trace()
     return R
 
 
